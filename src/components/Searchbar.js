@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const SearchBar = ({ setSearchQuery, placeholder,isFromRecipe }) => {
+const SearchBar = ({ setSearchQuery, placeholder, isFromRecipe }) => {
   const [value, setValue] = useState("");
 
   const handleSubmit = (e) => {
@@ -9,7 +9,7 @@ const SearchBar = ({ setSearchQuery, placeholder,isFromRecipe }) => {
   };
 
   return (
-    <div className="search-bar container" style={{paddingBottom: '20px'}} >
+    <div className="search-bar container" style={{ paddingBottom: "20px" }}>
       <form
         action=""
         onSubmit={handleSubmit}
@@ -22,15 +22,18 @@ const SearchBar = ({ setSearchQuery, placeholder,isFromRecipe }) => {
         <input
           placeholder={placeholder}
           onChange={(e) => {
-            if(isFromRecipe) setSearchQuery(e.target.value)
-            setValue(e.target.value)}}
+            if (isFromRecipe) setSearchQuery(e.target.value);
+            setValue(e.target.value);
+          }}
           type="text"
           id="search-box"
           value={value}
         />
-        <button className="btn-small" type="submit">
-          <i className="material-icons">search</i>
-        </button>
+        {!isFromRecipe && (
+          <button className="btn-small" type="submit">
+            <i className="material-icons">search</i>
+          </button>
+        )}
       </form>
     </div>
   );
