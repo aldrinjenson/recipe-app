@@ -8,18 +8,22 @@ const FoodCard = ({ foodItem: { image, nutrients, label, category } }) => {
   const protienRatio = nutrients.PROCNT / totalEnergy;
   const carbsRatio = (nutrients.PROCNT + nutrients.PROCNT) / totalEnergy;
 
+  console.log(protienRatio);
+  console.log(carbsRatio);
+
   let type = "Regular";
   let colour = "blue";
-  if (protienRatio > 15) {
+  if (protienRatio > 0.15) {
     type = "High Protein";
     colour = "blue";
-  } else if (protienRatio >= 12 && protienRatio <= 15) {
+  } else if (protienRatio >= 0.12 && protienRatio <= 0.15) {
     type = "Balanced";
     colour = "green";
-  } else if (carbsRatio > 50) {
+  } else if (carbsRatio > 0.5) {
     type = "High Carb";
     colour = "red";
   }
+  if (type==='Regular') return null
 
   return (
     <div classNameName="col s12 m4 ">
