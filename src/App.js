@@ -1,20 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
+import "./App.css";
 import Landing from "./components/Landing";
-import Navbar from "./components/Navbar";
-import SearchBar from "./components/Searchbar";
-import Foods from "./components/Foods";
-import Recipes from "./components/Recipes";
+import Body from "./components/Body";
 
 const App = () => {
 
-
   return (
-    <div className="App">
-      {/* <Navbar /> */}
+    <div className="App container">
       <Landing />
-      <SearchBar/>
-      <Foods/>
-      <Recipes/>
+      <Body />
     </div>
   );
 };
