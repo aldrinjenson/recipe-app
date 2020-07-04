@@ -29,4 +29,4 @@ const Recipes = ({ searchQuery }) => {
   );
 };
 
-export default FoodList;
+export default Recipes;
