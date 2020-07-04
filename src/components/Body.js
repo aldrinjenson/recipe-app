@@ -10,7 +10,7 @@ const Body = () => {
 
   return (
     <div className="body">
-      <SearchBar setSearchQuery={setSearchQuery} />
+      <SearchBar setSearchQuery={setSearchQuery} placeholder='Enter name of the food you wish to try' />
 
       <Tabs>
         <TabList>

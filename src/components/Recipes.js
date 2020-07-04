@@ -49,7 +49,11 @@ const Recipes = ({ searchQuery }) => {
 
       <div>
         <p>Filter by cuisine:</p>
-        <SearchBar setSearchQuery={setCuisineQuery} />
+        <SearchBar
+          setSearchQuery={setCuisineQuery}
+          placeholder="Enter the cuisine of your choice"
+          isFromRecipe={true}
+        />
       </div>
 
       <div className="row">

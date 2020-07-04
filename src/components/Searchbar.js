@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const SearchBar = ({ setSearchQuery }) => {
+const SearchBar = ({ setSearchQuery, placeholder,isFromRecipe }) => {
   const [value, setValue] = useState("");
 
   const handleSubmit = (e) => {
@@ -20,8 +20,10 @@ const SearchBar = ({ setSearchQuery }) => {
         }}
       >
         <input
-          placeholder="Enter name of the food you wish to try"
-          onChange={(e) => setValue(e.target.value)}
+          placeholder={placeholder}
+          onChange={(e) => {
+            if(isFromRecipe) setSearchQuery(e.target.value)
+            setValue(e.target.value)}}
           type="text"
           id="search-box"
           value={value}
