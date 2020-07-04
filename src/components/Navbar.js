@@ -1,9 +1,4 @@
 import React, { useEffect } from "react";
-// import "materialize-css/dist/css/materialize.min.css";
-import M from "materialize-css/dist/js/materialize.min.js";
-
-// import { HashLink as HLink } from "react-router-hash-link";
-
 const Navbar = () => {
   useEffect(() => {
     const sidenav = document.querySelector("#mobile-nav");

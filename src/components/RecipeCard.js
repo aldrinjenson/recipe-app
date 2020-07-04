@@ -11,7 +11,7 @@ const RecipeCard = ({ recipe }) => {
           <h4 className="">{recipe.label}</h4>
           <ul>
             <li>{recipe.dietLabels[0]}</li>
-            <li>{Math.ceil(recipe.calories)}</li>
+            <li>{Math.ceil(recipe.calories)} kcal</li>
             <li>{recipe.cuisineType[0]} cusine</li>
             <li>Meal Type: {recipe.mealType[0]}</li>
           </ul>
