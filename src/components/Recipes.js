@@ -3,6 +3,7 @@ import RecipeCard from "./RecipeCard";
 
 const Recipes = ({ searchQuery }) => {
   const [recipes, setRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch(
@@ -10,6 +11,7 @@ const Recipes = ({ searchQuery }) => {
       );
       const data = await result.json();
       setRecipes(data.hits);
+      setIsLoading(false);
     };
     fetchData();
   }, [searchQuery]);
@@ -17,10 +19,10 @@ const Recipes = ({ searchQuery }) => {
   return (
     <div className="recipes" id="recipes">
       <div className="row">
-        {recipes ? (
-          recipes.map((item) => <RecipeCard key={item} recipe={item.recipe} />)
+        {isLoading ? (
+          <div className='center'>Loading...</div>
         ) : (
-          <div>Loading</div>
+          recipes.map((item) => <RecipeCard key={item} recipe={item.recipe} />)
         )}
       </div>
     </div>

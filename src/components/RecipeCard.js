@@ -17,7 +17,7 @@ const RecipeCard = ({ recipe }) => {
           </ul>
         </div>
         <div className="card-action">
-          <a href="#">This is a link</a>
+          <a href={recipe.url}>More Details</a>
         </div>
       </div>
     </div>

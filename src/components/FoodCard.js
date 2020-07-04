@@ -39,6 +39,9 @@ const FoodCard = ({ foodItem: { image, nutrients, label, category } }) => {
             <h5>
               Type: <strong>{type}</strong>
             </h5>
+            <h5>
+              Total Energy: <strong>{Math.ceil(totalEnergy)} kcal</strong>
+            </h5>
           </div>
           <div className="card-action">
             <a href="#">This is a link</a>

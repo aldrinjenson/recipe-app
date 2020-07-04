@@ -3,6 +3,7 @@ import FoodCard from "./FoodCard";
 
 const FoodList = ({ searchQuery }) => {
   const [foods, setFoods] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch(
@@ -10,6 +11,7 @@ const FoodList = ({ searchQuery }) => {
       );
       const data = await result.json();
       setFoods(data.hints);
+      setIsLoading(false);
     };
     fetchData();
   }, [searchQuery]);
@@ -17,12 +19,12 @@ const FoodList = ({ searchQuery }) => {
   return (
     <div className="foodlist" id="foodlist">
       <div className="row">
-        {foods ? (
+        {isLoading ? (
+          <div className='center'>Loading...</div>
+        ) : (
           foods.map((item) => (
             <FoodCard key={item.food.foodId} foodItem={item.food} />
           ))
-        ) : (
-          <div>Loading</div>
         )}
       </div>
     </div>
