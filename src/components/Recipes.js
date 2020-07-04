@@ -57,9 +57,12 @@ const Recipes = ({ searchQuery }) => {
           <div className="center">Loading...</div>
         ) : (
           recipes
-            .filter((item) =>
-              item.recipe.cuisineType[0].includes(cuisineQuery.toLowerCase())
-            )
+            .filter((item) => {
+              return (
+                item.recipe.cuisineType &&
+                item.recipe.cuisineType[0].includes(cuisineQuery.toLowerCase())
+              );
+            })
             .map((item) => <RecipeCard key={item} recipe={item.recipe} />)
         )}
       </div>
