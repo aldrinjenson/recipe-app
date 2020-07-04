@@ -1,0 +1,13 @@
+.search-bar {
+  margin: 30px;
+  padding: 20px;
+}
+
+#search-form{
+   display: flex;
+}
+
+#search-icon{
+   position: relative;
+   top: 12px;
+}

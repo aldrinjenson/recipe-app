@@ -1,16 +1,9 @@
 import React from "react";
+import "./Landing.styles.css";
 
 const Landing = () => {
   return (
-    <div
-      className="landing-page "
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: '60vh',
-      }}
-    >
+    <div className="landing-page ">
       <div className="center-align">
         <h2 className="green-text text-darken-4">Food & Recipes</h2>
         <h5 className="green-text text-lighten-1">
