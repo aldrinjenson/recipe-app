@@ -10,20 +10,19 @@ const Body = () => {
 
   return (
     <div className="body">
-      
       <SearchBar setSearchQuery={setSearchQuery} />
 
       <Tabs>
         <TabList>
-          <Tab>Food Details</Tab>
           <Tab>Related Recipes</Tab>
+          <Tab>Food Details</Tab>
         </TabList>
 
         <TabPanel>
-          <FoodList searchQuery={searchQuery} />
+          <Recipes searchQuery={searchQuery} />
         </TabPanel>
         <TabPanel>
-          <Recipes searchQuery={searchQuery} />
+          <FoodList searchQuery={searchQuery} />
         </TabPanel>
       </Tabs>
     </div>

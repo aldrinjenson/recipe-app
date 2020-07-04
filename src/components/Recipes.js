@@ -18,9 +18,7 @@ const Recipes = ({ searchQuery }) => {
     <div className="recipes" id="recipes">
       <div className="row">
         {recipes ? (
-          recipes.map((item) => (
-            <RecipeCard key={item.food.foodId} foodItem={item.food} />
-          ))
+          recipes.map((item) => <RecipeCard key={item} recipe={item.recipe} />)
         ) : (
           <div>Loading</div>
         )}
