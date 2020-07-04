@@ -23,7 +23,7 @@ const FoodCard = ({ foodItem: { image, nutrients, label, category } }) => {
     type = "High Carb";
     colour = "red";
   }
-  if (type==='Regular') return null
+  // if (type==='Regular') return null
 
   return (
     <div classNameName="col s12 m4 ">
