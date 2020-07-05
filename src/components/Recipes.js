@@ -1,75 +1,128 @@
 import React, { useState, useEffect } from "react";
 import RecipeCard from "./RecipeCard";
-import M from "materialize-css/dist/js/materialize.min.js";
-import SearchBar from "./Searchbar";
 
 const Recipes = ({ searchQuery }) => {
   const [recipes, setRecipes] = useState([]);
+  const [newList, setNewList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    M.AutoInit();
 
+  useEffect(() => {
     const fetchData = async () => {
       const result = await fetch(
         `https://api.edamam.com/search?app_id=900da95e&app_key=40698503668e0bb3897581f4766d77f9&q=${searchQuery}`
       );
       const data = await result.json();
       setRecipes(data.hits);
+      setNewList(data.hits);
       setIsLoading(false);
     };
     fetchData();
   }, [searchQuery]);
 
-  // const [filteredList, setFilteredList] = useState([]);
-  const [cuisineQuery, setCuisineQuery] = useState("");
+  let mealTypes = [
+    ...new Set(
+      recipes.map((item) =>
+        item.recipe.mealType ? item.recipe.mealType[0] : null
+      )
+    ),
+  ];
+  let dietLabels = [
+    ...new Set(
+      recipes.map((item) =>
+        item.recipe.mealType ? item.recipe.dietLabels[0] : null
+      )
+    ),
+  ];
+  let cuisineType = [
+    ...new Set(
+      recipes.map((item) =>
+        item.recipe.cuisineType ? item.recipe.cuisineType[0] : null
+      )
+    ),
+  ];
 
-  // const handleChange = (e) => {
-  //   const val = e.target.value;
-  //   let newList;
-  //   if (e == 0) return;
-  //   else if (e == 1) newList = recipes.filter((item) => item.calories > 2000);
-  //   else if (e == -1) newList = recipes.filter((item) => item.calories < 2000);
+  const handleClick = (tag, val) => {
+    console.log(tag, val);
+    setNewList(
+      recipes.filter((item) => item.recipe[tag] && item.recipe[tag][0] === val)
+    );
+  };
+  console.log(newList);
 
-  //   setFilteredList(newList);
-  // };
-  // console.log(filteredList);
   return (
     <div className="recipes" id="recipes">
-      {/* <div className="input-field col s12 m6">
-        <select onChange={handleChange}>
-          <option value="" disabled selected>
-            Filter by energy values:
-          </option>
-          <option value="-1">Energy below 2000 kcal</option>
-          <option value="1">Energy above 2000 kcal</option>
-          <option value="0">Clear filter</option>
-        </select>
-        {/* <label>Chose Energy values</label> */}
-      {/* </div>  */}
+      {isLoading ? (
+        <div className="center">Loading..</div>
+      ) : (
+        <div>
+          <h4>Available Filters:</h4>
 
-      <div>
-        <p>Filter by cuisine:</p>
-        <SearchBar
-          setSearchQuery={setCuisineQuery}
-          placeholder="Enter the cuisine of your choice"
-          isFromRecipe={true}
-        />
-      </div>
+          <div className="row">
+            <div className="input-field col s6 m4">
+              <h5>Meal Types:</h5>
+              <select className="browser-default" id="">
+                <option value="" disabled selected>
+                  Choose your option
+                </option>
+                {mealTypes.map((item) => (
+                  <option
+                    onClick={() => handleClick("mealType", item)}
+                    value={item}
+                  >
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-      <div className="row">
-        {isLoading ? (
-          <div className="center">Loading...</div>
-        ) : (
-          recipes
-            .filter((item) => {
-              return (
-                item.recipe.cuisineType &&
-                item.recipe.cuisineType[0].includes(cuisineQuery.toLowerCase())
-              );
-            })
-            .map((item) => <RecipeCard key={item} recipe={item.recipe} />)
-        )}
-      </div>
+            <div className="input-field col s6 m4">
+              <h5>Diet Labels:</h5>
+              <select className="browser-default" id="">
+                <option value="" disabled selected>
+                  Choose your option
+                </option>
+                {dietLabels.map((item) => (
+                  <option
+                    onClick={() => handleClick("dietLabels", item)}
+                    value={item}
+                  >
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="input-field col s6 m4">
+              <h5>Cuisine:</h5>
+              <select className="browser-default" id="">
+                <option value="" disabled selected>
+                  Choose your option
+                </option>
+                {cuisineType.map((item) => (
+                  <option
+                    onClick={() => handleClick("cuisineType", item)}
+                    value={item}
+                  >
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="row">
+            {newList.length ? (
+              newList.map((item) => (
+                <RecipeCard key={item} recipe={item.recipe} />
+              ))
+            ) : (
+              <div>
+                No such food item is available based on the selected criterions{" "}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
