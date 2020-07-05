@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const FoodCard = ({
   foodItem: { image, nutrients, label, category },
@@ -7,7 +7,6 @@ const FoodCard = ({
   const foodImage = image ? image : require("../no-preview.png");
 
   const totalEnergy = nutrients.PROCNT + nutrients.FAT + nutrients.CHOCDF;
-
   const protienRatio = nutrients.PROCNT / totalEnergy;
   const carbsRatio = (nutrients.PROCNT + nutrients.PROCNT) / totalEnergy;
 
@@ -15,10 +14,11 @@ const FoodCard = ({
   // console.log(carbsRatio);
 
   let type = "Regular";
+
   let colour = "blue";
   if (protienRatio > 0.15) {
     type = "High Protein";
-    colour = "blue";
+    colour = "yellow";
   } else if (protienRatio >= 0.12 && protienRatio <= 0.15) {
     type = "Balanced";
     colour = "green";
