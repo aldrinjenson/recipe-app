@@ -38,7 +38,7 @@ const FoodList = ({ searchQuery }) => {
               <option value="Balanced">Balanced</option>
               <option value="High Carb">High Carb</option>
               <option value="Regular">Regular</option>
-              <option value="">Clear Filter</option>
+              <option value="">Clear Filter and show all</option>
             </select>
           </div>
 
