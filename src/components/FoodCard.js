@@ -1,6 +1,6 @@
 import React from "react";
 
-const FoodCard = ({ foodItem: { image, nutrients, label, category }, nutrientCategory }) => {
+const FoodCard = ({ foodItem: { image, nutrients, label, category }, itemType}) => {
   const foodImage = image ? image : require("../no-preview.png");
 
   const totalEnergy = nutrients.PROCNT + nutrients.FAT + nutrients.CHOCDF;
@@ -23,8 +23,7 @@ const FoodCard = ({ foodItem: { image, nutrients, label, category }, nutrientCat
     type = "High Carb";
     colour = "red";
   }
-
-  // if(nutrientCategory && type !== nutrientCategory) return
+  if(itemType !== '' && itemType !==type) return null
 
   return (
     <div className="col s12">

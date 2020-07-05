@@ -5,7 +5,7 @@ import Filter from "./Filter";
 const FoodList = ({ searchQuery }) => {
   const [foods, setFoods] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [newList, setNewList] = useState([]);
+  const [selectedValue, setSelectedValue] = useState('')
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch(
@@ -18,20 +18,19 @@ const FoodList = ({ searchQuery }) => {
     fetchData();
   }, [searchQuery]);
 
-const handleChange = e =>{
-  console.log(e)
-}
-
   return (
     <div className="foodlist" id="foodlist">
       {isLoading ? (
         <div className="center">Loading...</div>
       ) : (
         <div>
-          {/* <h4>Sort by Food Energy Type: </h4>
+          <h4>Sort by Food Energy Type: </h4>
           <div className="row">
             <div className="input-field col s6 m4"></div>
-            <select className="browser-default" onChange={()=>handleChange} >
+            <select
+              className="browser-default"
+              onChange={(e) => setSelectedValue(e.target.value)}
+            >
               <option disabled selected>
                 Choose your option
               </option>
@@ -39,15 +38,16 @@ const handleChange = e =>{
               <option value="Balanced">Balanced</option>
               <option value="High Carb">High Carb</option>
               <option value="Regular">Regular</option>
+              <option value="">Clear Filter</option>
             </select>
-          </div> */}
+          </div>
 
           <div className="row">
             {foods.map((item) => (
               <FoodCard
                 key={item.food.foodId}
                 foodItem={item.food}
-                nutrientCategory={false}
+                itemType={selectedValue}
               />
             ))}
           </div>

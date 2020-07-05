@@ -23,10 +23,10 @@ const Body = () => {
           </TabList>
 
           <TabPanel>
-            <Recipes searchQuery={searchQuery} />
+            <FoodList searchQuery={searchQuery} />
           </TabPanel>
           <TabPanel>
-            <FoodList searchQuery={searchQuery} />
+            <Recipes searchQuery={searchQuery} />
           </TabPanel>
         </Tabs>
       </div>
