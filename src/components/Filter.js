@@ -11,13 +11,15 @@ const Filter = ({ tag, array, handleClick }) => {
     <div className="filter-select">
       <div className="input-field col s6 m4">
         <h5>{tag}</h5>
-        <select className="browser-default">
+        <select
+          className="browser-default"
+          onChange={(e) => handleClick(tagValueDict[tag], e.target.value)}
+        >
           <option disabled selected>
             Choose your option
           </option>
           {array.map((item) => (
             <option
-              onClick={() => handleClick(tagValueDict[tag], item)}
               value={item}
             >
               {item}
