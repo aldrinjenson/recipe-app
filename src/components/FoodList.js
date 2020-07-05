@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import FoodCard from "./FoodCard";
-import Filter from "./Filter";
 
 const FoodList = ({ searchQuery }) => {
   const [foods, setFoods] = useState([]);

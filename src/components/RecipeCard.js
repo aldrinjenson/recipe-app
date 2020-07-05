@@ -7,7 +7,7 @@ const RecipeCard = ({
     <div className="col s12 m6 l4 recipe-card">
       <div className="card">
         <div className="card-image">
-          <img src={image} />
+          <img src={image} alt={label} />
         </div>
         <div className="card-content">
           <h4 className="">{label}</h4>

@@ -1,6 +1,9 @@
 import React from "react";
 
-const FoodCard = ({ foodItem: { image, nutrients, label, category }, itemType}) => {
+const FoodCard = ({
+  foodItem: { image, nutrients, label, category },
+  itemType,
+}) => {
   const foodImage = image ? image : require("../no-preview.png");
 
   const totalEnergy = nutrients.PROCNT + nutrients.FAT + nutrients.CHOCDF;
@@ -23,16 +26,20 @@ const FoodCard = ({ foodItem: { image, nutrients, label, category }, itemType}) 
     type = "High Carb";
     colour = "red";
   }
-  if(itemType !== '' && itemType !==type) return null
+  if (itemType !== "" && itemType !== type) return null;
 
   return (
     <div className="col s12">
-      <div className="card horizontal">
+      <div className={`card horizontal ${colour} lighten-4`}>
         <div
           className="card-image"
           style={!image ? { maxWidth: "65%", overflow: "hidden" } : null}
         >
-          <img src={foodImage} style={!image ? { height: "100%" } : null} />
+          <img
+            src={foodImage}
+            alt={label}
+            style={!image ? { height: "100%" } : null}
+          />
         </div>
         <div className="card-stacked">
           <div className="card-content">
