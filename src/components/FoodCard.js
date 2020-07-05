@@ -1,6 +1,6 @@
 import React from "react";
 
-const FoodCard = ({ foodItem: { image, nutrients, label, category } }) => {
+const FoodCard = ({ foodItem: { image, nutrients, label, category }, nutrientCategory }) => {
   const foodImage = image ? image : require("../no-preview.png");
 
   const totalEnergy = nutrients.PROCNT + nutrients.FAT + nutrients.CHOCDF;
@@ -8,8 +8,8 @@ const FoodCard = ({ foodItem: { image, nutrients, label, category } }) => {
   const protienRatio = nutrients.PROCNT / totalEnergy;
   const carbsRatio = (nutrients.PROCNT + nutrients.PROCNT) / totalEnergy;
 
-  console.log(protienRatio);
-  console.log(carbsRatio);
+  // console.log(protienRatio);
+  // console.log(carbsRatio);
 
   let type = "Regular";
   let colour = "blue";
@@ -24,8 +24,10 @@ const FoodCard = ({ foodItem: { image, nutrients, label, category } }) => {
     colour = "red";
   }
 
+  // if(nutrientCategory && type !== nutrientCategory) return
+
   return (
-    <div classNameName="col s12 m4 ">
+    <div className="col s12">
       <div className="card horizontal">
         <div
           className="card-image"

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import FoodCard from "./FoodCard";
+import Filter from "./Filter";
 
 const FoodList = ({ searchQuery }) => {
   const [foods, setFoods] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [newList, setNewList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch(
@@ -16,17 +18,41 @@ const FoodList = ({ searchQuery }) => {
     fetchData();
   }, [searchQuery]);
 
+const handleChange = e =>{
+  console.log(e)
+}
+
   return (
     <div className="foodlist" id="foodlist">
-      <div className="row">
-        {isLoading ? (
-          <div className='center'>Loading...</div>
-        ) : (
-          foods.map((item) => (
-            <FoodCard key={item.food.foodId} foodItem={item.food} />
-          ))
-        )}
-      </div>
+      {isLoading ? (
+        <div className="center">Loading...</div>
+      ) : (
+        <div>
+          {/* <h4>Sort by Food Energy Type: </h4>
+          <div className="row">
+            <div className="input-field col s6 m4"></div>
+            <select className="browser-default" onChange={()=>handleChange} >
+              <option disabled selected>
+                Choose your option
+              </option>
+              <option value="High Protein">High Protein</option>
+              <option value="Balanced">Balanced</option>
+              <option value="High Carb">High Carb</option>
+              <option value="Regular">Regular</option>
+            </select>
+          </div> */}
+
+          <div className="row">
+            {foods.map((item) => (
+              <FoodCard
+                key={item.food.foodId}
+                foodItem={item.food}
+                nutrientCategory={false}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

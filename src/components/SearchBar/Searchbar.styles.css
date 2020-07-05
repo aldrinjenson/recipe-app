@@ -10,4 +10,5 @@
 #search-icon{
    position: relative;
    top: 12px;
+   cursor: pointer;
 }

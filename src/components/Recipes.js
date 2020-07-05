@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RecipeCard from "./RecipeCard";
+import Filter from "./Filter";
 
 const Recipes = ({ searchQuery }) => {
   const [recipes, setRecipes] = useState([]);
@@ -47,7 +48,6 @@ const Recipes = ({ searchQuery }) => {
       recipes.filter((item) => item.recipe[tag] && item.recipe[tag][0] === val)
     );
   };
-  console.log(newList);
 
   return (
     <div className="recipes" id="recipes">
@@ -56,64 +56,28 @@ const Recipes = ({ searchQuery }) => {
       ) : (
         <div>
           <h4>Available Filters:</h4>
-
           <div className="row">
-            <div className="input-field col s6 m4">
-              <h5>Meal Types:</h5>
-              <select className="browser-default" id="">
-                <option value="" disabled selected>
-                  Choose your option
-                </option>
-                {mealTypes.map((item) => (
-                  <option
-                    onClick={() => handleClick("mealType", item)}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="input-field col s6 m4">
-              <h5>Diet Labels:</h5>
-              <select className="browser-default" id="">
-                <option value="" disabled selected>
-                  Choose your option
-                </option>
-                {dietLabels.map((item) => (
-                  <option
-                    onClick={() => handleClick("dietLabels", item)}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="input-field col s6 m4">
-              <h5>Cuisine:</h5>
-              <select className="browser-default" id="">
-                <option value="" disabled selected>
-                  Choose your option
-                </option>
-                {cuisineType.map((item) => (
-                  <option
-                    onClick={() => handleClick("cuisineType", item)}
-                    value={item}
-                  >
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Filter
+              tag={"Meal Types"}
+              array={mealTypes}
+              handleClick={handleClick}
+            />
+            <Filter
+              tag={"Diet Label"}
+              array={dietLabels}
+              handleClick={handleClick}
+            />
+            <Filter
+              tag={"Cuisine Type"}
+              array={cuisineType}
+              handleClick={handleClick}
+            />
           </div>
 
           <div className="row">
             {newList.length ? (
               newList.map((item) => (
-                <RecipeCard key={item} recipe={item.recipe} />
+                <RecipeCard key={item.recipe.uri} recipe={item.recipe} />
               ))
             ) : (
               <div>
