@@ -4,7 +4,6 @@ import Filter from "./Filter";
 
 const Recipes = ({ searchQuery }) => {
   const [recipes, setRecipes] = useState([]);
-  const [newList, setNewList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -14,11 +13,16 @@ const Recipes = ({ searchQuery }) => {
       );
       const data = await result.json();
       setRecipes(data.hits);
-      setNewList(data.hits);
       setIsLoading(false);
     };
     fetchData();
   }, [searchQuery]);
+
+  const [constraints, setConstraints] = useState({
+    mealType: "",
+    dietLabels: "",
+    cuisineType: "",
+  });
 
   let mealTypes = [
     ...new Set(
@@ -33,7 +37,8 @@ const Recipes = ({ searchQuery }) => {
         item.recipe.mealType ? item.recipe.dietLabels[0] : null
       )
     ),
-  ];
+  ].filter((label) => label !== undefined);
+
   let cuisineType = [
     ...new Set(
       recipes.map((item) =>
@@ -44,10 +49,40 @@ const Recipes = ({ searchQuery }) => {
 
   const handleClick = (tag, val) => {
     console.log(tag, val);
-    setNewList(
-      recipes.filter((item) => item.recipe[tag] && item.recipe[tag][0] === val)
-    );
+    setConstraints({
+      ...constraints,
+      [tag]: val,
+    });
   };
+
+  const applyConstraints = (recipes, constraints) => {
+    const mealFilter = (recipe, mealType) => {
+      if (mealType === "") return true;
+      return mealType === recipe.mealType[0];
+    };
+
+    const dietFilter = (recipe, dietLabels) => {
+      if (dietLabels === "") return true;
+      return dietLabels === recipe.dietLabels[0];
+    };
+
+    const cuisineFilter = (recipe, cuisine) => {
+      return cuisine === "" || cuisine === recipe.cuisineType[0];
+    };
+
+    const constrainedRecipes = recipes.filter((recipe) => {
+      return (
+        mealFilter(recipe.recipe, constraints.mealType) &&
+        dietFilter(recipe.recipe, constraints.dietLabels) &&
+        cuisineFilter(recipe.recipe, constraints.cuisineType)
+      );
+    });
+    return constrainedRecipes;
+  };
+
+  const filteredRecipes = !isLoading
+    ? applyConstraints(recipes, constraints)
+    : [];
 
   return (
     <div className="recipes" id="recipes">
@@ -74,15 +109,31 @@ const Recipes = ({ searchQuery }) => {
             />
           </div>
 
-          <div className="row">
-            {newList.length ? (
-              newList.map((item) => (
-                <RecipeCard key={item.recipe.uri} recipe={item.recipe} />
-              ))
+          <div className="row" style={{ minHeight: "30vh" }}>
+            {!isLoading ? (
+              filteredRecipes.length ? (
+                <div>
+                  <div className="green-text text-darken-2">
+                    {filteredRecipes.length} recipes found
+                  </div>
+                  <br />
+                  {filteredRecipes.map((item) => (
+                    <RecipeCard key={item.recipe.uri} recipe={item.recipe} />
+                  ))}
+                </div>
+              ) : (
+                <div style={{ height: "30vh" }} className="center">
+                  <p>
+                    No such food item is available based on the selected
+                    criterions
+                  </p>
+                  <br />
+                  <p>Please try changing the filters</p>
+                  <br />
+                </div>
+              )
             ) : (
-              <div>
-                No such food item is available based on the selected criterions{" "}
-              </div>
+              <div className="center">Loading..</div>
             )}
           </div>
         </div>

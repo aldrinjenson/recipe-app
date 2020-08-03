@@ -1,9 +1,9 @@
 import React from "react";
 
 const tagValueDict = {
-  "Diet Label": 'dietLabels',
-  "Cuisine Type": 'cuisineType',
-  "Meal Types": 'mealType',
+  "Diet Label": "dietLabels",
+  "Cuisine Type": "cuisineType",
+  "Meal Types": "mealType",
 };
 
 const Filter = ({ tag, array, handleClick }) => {
@@ -15,15 +15,11 @@ const Filter = ({ tag, array, handleClick }) => {
           className="browser-default"
           onChange={(e) => handleClick(tagValueDict[tag], e.target.value)}
         >
-          <option disabled selected>
-            Choose your option
+          <option defaultValue value="">
+            All
           </option>
-          {array.map((item) => (
-            <option
-              value={item}
-            >
-              {item}
-            </option>
+          {array.map((item, index) => (
+            <option key={index} value={item}>{item}</option>
           ))}
         </select>
       </div>
