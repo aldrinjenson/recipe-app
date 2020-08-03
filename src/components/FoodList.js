@@ -4,7 +4,7 @@ import FoodCard from "./FoodCard";
 const FoodList = ({ searchQuery }) => {
   const [foods, setFoods] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedValue, setSelectedValue] = useState('')
+  const [selectedValue, setSelectedValue] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch(
@@ -30,14 +30,13 @@ const FoodList = ({ searchQuery }) => {
               className="browser-default"
               onChange={(e) => setSelectedValue(e.target.value)}
             >
-              <option disabled selected>
-                Choose your option
+              <option value="" defaultValue>
+                All
               </option>
               <option value="High Protein">High Protein</option>
               <option value="Balanced">Balanced</option>
               <option value="High Carb">High Carb</option>
               <option value="Regular">Regular</option>
-              <option value="">Clear Filter and show all</option>
             </select>
           </div>
 
