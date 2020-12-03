@@ -26,24 +26,25 @@ const Recipes = ({ searchQuery }) => {
 
   let mealTypes = [
     ...new Set(
-      recipes.map((item) =>
-        item.recipe.mealType ? item.recipe.mealType[0] : null
-      )
+      recipes
+        .filter(({ recipe }) => recipe.mealType && recipe.mealType !== "")
+        .map((item) => item.recipe.mealType[0])
     ),
   ];
   let dietLabels = [
     ...new Set(
-      recipes.map((item) =>
-        item.recipe.mealType ? item.recipe.dietLabels[0] : null
-      )
+      recipes
+        .filter(({ recipe }) => recipe.dietLabels)
+        .map((item) => item.recipe.dietLabels[0])
+        .filter(Boolean) // not very good
     ),
-  ].filter((label) => label !== undefined);
+  ];
 
   let cuisineType = [
     ...new Set(
-      recipes.map((item) =>
-        item.recipe.cuisineType ? item.recipe.cuisineType[0] : null
-      )
+      recipes
+        .filter(({ recipe }) => recipe.cuisineType && recipe.cuisineType !== "")
+        .map((item) => item.recipe.cuisineType[0])
     ),
   ];
 
@@ -58,23 +59,25 @@ const Recipes = ({ searchQuery }) => {
   const applyConstraints = (recipes, constraints) => {
     const mealFilter = (recipe, mealType) => {
       if (mealType === "") return true;
-      return mealType === recipe.mealType[0];
+      return recipe.mealType ? mealType === recipe.mealType[0] : false;
     };
 
     const dietFilter = (recipe, dietLabels) => {
       if (dietLabels === "") return true;
-      return dietLabels === recipe.dietLabels[0];
+      return recipe.dietLabels ? dietLabels === recipe.dietLabels[0] : false;
     };
 
     const cuisineFilter = (recipe, cuisine) => {
-      return cuisine === "" || cuisine === recipe.cuisineType[0];
+      if (cuisine === "") return true;
+      return recipe.cuisineType ? cuisine === recipe.cuisineType[0] : false;
+      // return cuisine === "" || cuisine === recipe.cuisineType[0];
     };
 
-    const constrainedRecipes = recipes.filter((recipe) => {
+    const constrainedRecipes = recipes.filter(({ recipe }) => {
       return (
-        mealFilter(recipe.recipe, constraints.mealType) &&
-        dietFilter(recipe.recipe, constraints.dietLabels) &&
-        cuisineFilter(recipe.recipe, constraints.cuisineType)
+        mealFilter(recipe, constraints.mealType) &&
+        dietFilter(recipe, constraints.dietLabels) &&
+        cuisineFilter(recipe, constraints.cuisineType)
       );
     });
     return constrainedRecipes;
