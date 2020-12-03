@@ -8,7 +8,7 @@ const FoodList = ({ searchQuery }) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch(
-        `https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=${searchQuery}&app_id=44ce0161&app_key=1bbf1aa0046b6f820792715165b5a03c`
+        `https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=${searchQuery}&app_id=${process.env.REACT_APP_FOOD_APP_ID}&app_key=${process.env.REACT_APP_FOOD_API_KEY}`
       );
       const data = await result.json();
       setFoods(data.hints);
